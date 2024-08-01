@@ -1,0 +1,582 @@
+package test.script;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertTrue;
+
+import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import cocoro.lib.uiauto.DriverFactory;
+import cocoro.testng.listener.PriorityInClass;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.PersonalFolder;
+import pages.PersonalFolderCreation;
+import pages.PersonalFolderDelete;
+import pages.PersonalFolderSearch;
+import pages.SharedFolder;
+import pages.SharedFolderCreation;
+import pages.SharedFolderDelete;
+import pages.SharedFolderSearch;
+import tests.FileUpload;
+import tests.InitialTestSetup;
+
+public class BackupSmokeTest extends InitialTestSetup {
+	private SharedFolderCreation sharedFolderCreation = null;
+	private SharedFolder sharedFolder = null;
+	private HomePage homePage = null;
+	String projectPath = System.getProperty("user.dir");
+	@BeforeClass(alwaysRun = true)
+	public void login(ITestContext context) throws Exception {
+		setupClassCommonSteps(context);
+		this.config.ReadConfig(context);
+
+		setDriver(new DriverFactory().createDriver(this.config).getDriver());
+		LoginPage loginPage = goToLoginPage();
+		loginPage.userNameTxtbox().sendKeys("test5.cocoro@gmail.com");
+		loginPage.passwordTxtbox().sendKeys("Demo88Demo");
+		homePage = loginPage.login();
+		Thread.sleep(5000);
+
+	}
+
+	@BeforeMethod(alwaysRun = true)
+	public void verifyFolderIsEmpty() throws Exception {
+		sharedFolder = homePage.gotoBackupFolder();
+		Thread.sleep(2000);
+		//System.out.println("This is NoData from App: " + personalFolder.uiControl("noData").getText());
+		//System.out.println("This is NoData from Expected: " + getLocalizedMessage("noFilesInTable").trim());
+		//if (personalFolder.uiControl("noData").getText().trim().equals(getLocalizedMessage("noFilesInTable").trim())) {
+		//	System.out.println("I'm Before() - No folders are found..!");
+		//} else {
+		//	personalFolder.selectAllCheckBox().click();
+		//	PersonalFolderDelete deleteFolder = personalFolder.gotoPersonalFolderDelete();
+		//	deleteFolder.okBtn().click();
+		///	Thread.sleep(2000);
+		//	System.out.println("I'm Before() Else part - No folders are found..!");
+		//	assertEquals(personalFolder.uiControl("noData").getText(), getLocalizedMessage("noFilesInTable").trim());
+		//}
+	}
+
+	@AfterMethod(alwaysRun = true)
+	public void deleteAllFolders() throws Exception {
+		// System.out.println("This is Expected result: "+getLocalizedMessage("noFilesInTable").trim());
+		//if ((personalFolder.uiControl("noData").getText().trim()).equals(getLocalizedMessage("noFilesInTable").trim())) {
+			//System.out.println("After Method: No data");		
+		//	personalFolder.uiControl("homeLink").click();			
+			//Thread.sleep(2000);
+		//} else {
+			//personalFolder.selectAllCheckBox().click();
+			//PersonalFolderDelete deleteFolder = personalFolder.gotoPersonalFolderDelete();
+			//deleteFolder.okBtn().click();
+			//Thread.sleep(2000);
+			// assertEquals(personalFolder.uiControl("noData").getText(),
+			// getLocalizedMessage("noData"));
+		 
+		 	sharedFolder.uiControl("homeLink").click();
+			// getDriver().findElement(By.xpath("//A[@data-v-24bb6368=''][text()='ホーム']")).click();
+			// this.getDriver().navigate().refresh();
+			Thread.sleep(2000);
+		//}
+	}
+	/*
+	
+	  @Test(priority = 1, groups = { "Functional" }, enabled = true)	  
+	 // @PriorityInClass(1) 
+	  public void verifyFolderIsCreated() throws Exception {
+	  setTestDesc(
+	  "Verify that Admin can create folder in the root folder.Folder should be created in the root folder"
+	  );
+	  
+	  sharedFolderCreation = sharedFolder.gotoSharedFolderCreation();
+	  sharedFolderCreation.createFolder("AutoTest");
+	  assertEquals(sharedFolder.firstRowName().getText(), "AutoTest");
+	  
+	  }
+	 
+	
+		 * @Test(priority = 2,groups = { "Functional" }, enabled = true)
+		 * //@PriorityInClass(2) public void verifySingleFileUpload() throws Exception {
+		 * setTestDesc( "Verify that Admin can Upload a file to root folder.");
+		 * sharedFolder.uploadBtn().click(); Thread.sleep(2000);
+		 * sharedFolder.uploadFileWithRobot(projectPath + "\\PNGFiles\\");
+		 * sharedFolder.uploadFileWithRobot("Single.pdf"); Thread.sleep(8000);
+		 * sharedFolder.gotoSearchSharedFolder("Single.pdf");
+		 * assertEquals(sharedFolder.firstRowName().getText(), "Single.pdf");
+		 * 
+		 * 
+		 * }
+		 * 
+		 * @Test(priority = 3, groups = { "Functional" }, enabled = true)
+		 * 
+		 * @PriorityInClass(1) public void verifyMultiFileUpload() throws Exception {
+		 * setTestDesc( "Verify that Admin can Upload multi files to root folder.");
+		 * sharedFolder.uploadBtn().click();
+		 * sharedFolder.uploadFileWithRobot(projectPath + "\\PNGFiles\\");
+		 * sharedFolder.uploadFileWithRobot("\"File1.pdf" + "\" \"File1.jpg"+
+		 * "\" \"File1.png" + "\" \"File1.jpeg"+ "\""); Thread.sleep(30000);
+		 * sharedFolder.gotoSearchSharedFolder("File1.pdf");
+		 * assertEquals(sharedFolder.firstRowName().getText(), "File1.pdf"); }
+		 */	
+	
+	@Test(priority = 2,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(3)
+	public void verifySingleFileFolderDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can download sinlge folder/file from the folder.");
+				
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);		
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(2000);
+		sharedFolder.downloadBtn().click();
+		Thread.sleep(6000);
+
+	}
+	  
+	@Test(priority = 3,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(3)
+	public void verifySingleFolderDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can download sinlge file from the root folder.file/folder should be available in the root folder");
+				
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.selectSinlgeCheckBox().click();
+		Thread.sleep(2000);
+		sharedFolder.downloadBtn().click();
+		Thread.sleep(3000);
+
+	}
+	@Test(priority = 4,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifyMultiFolderDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can download multiple file from the root folder.Folder should be available in the root folder");
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(3000);
+		sharedFolder.downloadBtn().click();
+		Thread.sleep(8000);
+
+	}
+	
+	
+	@Test(priority = 5,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(3)
+	public void verifyFolderSearch() throws Exception {
+		setTestDesc(
+				"Verify that Admin can search folder/file from the root folder.Folder should be available in the root folder");
+		String fileName = "Filename.jpg";
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		SharedFolderSearch gotoSearchSharedFolder = sharedFolder.gotoSearchSharedFolder(fileName);
+		String searchResultStr = gotoSearchSharedFolder.getSearchResultStr();	
+		Thread.sleep(1000);
+		assertEquals(searchResultStr,"検索結果");		
+		assertEquals(sharedFolder.firstRowName().getText().substring(0, 12), fileName);
+
+	}
+	
+	@Test(priority = 6,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifySearchPageReturnButton() throws Exception {
+		setTestDesc(
+				"Verify that Admin can search folder/file from the root folder and click on Return button to previous page");
+		String fileName = "Filename.jpg";
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		SharedFolderSearch gotoSearchSharedFolder = sharedFolder.gotoSearchSharedFolder(fileName);
+		Thread.sleep(1000);
+		gotoSearchSharedFolder.returnBtn().click();		
+		Thread.sleep(1000);
+		assertEquals(sharedFolder.getRootfolder().getText(), "IRAPPA");
+
+	}
+	
+	@Test(priority = 7,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(3)
+	public void verifyFilePreview() throws Exception {
+		setTestDesc(
+				"Verify that Image files are previewed");
+		String fileName = "Filename.jpg";
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		SharedFolderSearch gotoSearchSharedFolder = sharedFolder.gotoSearchSharedFolder(fileName);
+		sharedFolder.firstRowName().click();
+		assertTrue(sharedFolder.fileClose().isDisplayed());
+		Thread.sleep(1000);
+		sharedFolder.fileClose().click();
+
+	}
+	
+	
+	
+	@Test(priority = 8,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifyFileVersionGeneration() throws Exception {
+		setTestDesc(
+				"Verify that Based on the file generations in the settings page, File version should be displayed ");
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.gotoSearchSharedFolder("version.txt");	
+		Thread.sleep(1000);
+		sharedFolder.OpenFileVersion().click();		
+		Thread.sleep(1000);
+		assertEquals(sharedFolder.getFileVersionHeader().getText(),"以前のバージョン");
+		sharedFolder.CloseFileVersion().click();	
+
+	}
+	@Test(priority = 9,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifyBackupDeviceManagementFolderList() throws Exception {
+		setTestDesc(
+				"Verify that Backup Device Management device/folder list ");
+		sharedFolder.OpenDeviceManagement().click();
+		Thread.sleep(1000);			
+		assertEquals(sharedFolder.deviceManagementheader(),"デバイス管理");
+		//assertEquals(sharedFolder.listOfDevices(),"デバイス管理");
+		Thread.sleep(1000);	
+		
+		assertTrue(sharedFolder.firstRowName().isDisplayed());
+		
+	}
+	
+	
+	@Test(priority = 10,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(3)
+	public void verifySingleFolderDelete() throws Exception {
+		setTestDesc(
+				"Verify that Admin can delete sinlge file from the root folder.file/folder should be available in the  folder");
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.selectSinlgeCheckBox().click();
+		Thread.sleep(2000);
+		sharedFolder.deleteBkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteOKBtn().click();
+		Thread.sleep(1000);
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertEquals(BeforeDltfileCnt, AfterDltfileCnt);
+	}
+	@Test(priority = 11,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifyMultiFolderDelete() throws Exception {
+		setTestDesc(
+				"Verify that Admin can delete multiple file from the root folder.Folder should be available in the  folder");
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenFolder().click();
+		Thread.sleep(1000);
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteBkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteOKBtn().click();		
+		Thread.sleep(3000);
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertEquals(BeforeDltfileCnt, AfterDltfileCnt);
+
+	}
+	@Test(priority = 12,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifySettings() throws Exception {
+		setTestDesc(
+				"Verify that Change the values in the settings and set ");
+		
+		sharedFolder.ClickSettings().click();
+		Thread.sleep(1000);	
+		sharedFolder.ClickOnNumberGenerationBk().click();
+		Thread.sleep(1000);	
+		sharedFolder.Select5option().click();
+		Thread.sleep(1000);	
+		sharedFolder.ClickonSet().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteOKBtn().click();		
+		Thread.sleep(2000);
+		
+		assertEquals(sharedFolder.getStringMsg().getText(),"設定値を登録しました。");
+		
+	}
+	
+	
+	@Test(priority = 16,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifySingleDeviceDelete() throws Exception {
+		setTestDesc(
+				"Verify that Select single device and delete ");
+		sharedFolder.OpenDeviceManagement().click();
+		Thread.sleep(1000);	
+		sharedFolder.backupdeviceCheckBox().click();
+		Thread.sleep(1000);			
+		sharedFolder.deleteBkBtn();
+		Thread.sleep(1000);	
+		sharedFolder.deleteOKBtn();
+		Thread.sleep(3000);	
+		assertEquals(sharedFolder.Emptydevice().getText(),"データはありません。");
+		
+	}
+	
+	
+	/*
+	@Test(priority = 8,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(1)
+	public void verifyContextMenuDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can download folder/file from the context menu in the root folder");		
+		sharedFolder.OperationMenu().click();
+		Thread.sleep(2000);
+		sharedFolder.downloadFromContextBtn().click();
+		Thread.sleep(1000);
+		boolean contextMenu = sharedFolder.OperationMenu().isDisplayed();
+		assertTrue(contextMenu);
+
+	}
+	@Test(priority = 9,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(2)
+	public void verifyContextMenuRename() throws Exception {
+		setTestDesc(
+				"Verify that Admin can Rename folder/file from the context menu in the root folder");	
+		
+		sharedFolder.OperationMenu().click();
+		Thread.sleep(2000);
+		sharedFolder.renameFromContextBtn().click();
+		Thread.sleep(1000);			
+		sharedFolder.renameInput().sendKeys("Rename");
+		Thread.sleep(1000);		
+		sharedFolder.renameOkBtn().click();
+		Thread.sleep(1000);				
+		sharedFolder.gotoSearchSharedFolder("Rename");		
+	    assertEquals(sharedFolder.firstRowName().getText().substring(0, 6), "Rename");
+		
+	}
+	@Test(priority = 10,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(2)
+	public void verifyContextMenuFilePreview() throws Exception {
+		setTestDesc(
+				"Verify that Admin can open file preview from the context menu in the root folder");	
+		
+		sharedFolder.OperationMenu().click();
+		Thread.sleep(1000);
+		sharedFolder.openFilePreview().click();
+		Thread.sleep(1000);		
+		assertTrue(sharedFolder.fileClose().exists());		
+		sharedFolder.fileClose().click();
+	}
+	
+	@Test(priority = 11,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(2)
+	public void verifyContextMenuFileMove() throws Exception {
+		setTestDesc(
+				"Verify that Admin can move file from the context menu in the root folder. Files or folders should move to selected folder ");	
+		//personalFolderCreation = personalFolder.gotoPersonalFolderCreation();
+		//personalFolderCreation.createFolder("AutoTest");
+		Thread.sleep(1000);
+		//personalFolder.firstRowName()
+		sharedFolder.OperationMenu().click();
+		Thread.sleep(1000);
+		sharedFolder.changeSaveDestinationBtnfrmContext().click();
+		Thread.sleep(1000);
+		sharedFolder.SelectFolderInSameLevel().click();
+		Thread.sleep(1000);
+		sharedFolder.renameOkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenCreatedFolder().click();
+		Thread.sleep(1000);
+		assertEquals(sharedFolder.firstRowName().getText().substring(0, 4), "File");
+	}
+	
+	@Test(priority = 12,groups = { "Functional" }, enabled = true)
+	//@PriorityInClass(2)
+	public void verifyContextMenuFileShare() throws Exception {
+		setTestDesc(
+				"Verify that Admin can share file from the context menu in the root folder. ");	
+		sharedFolder.OperationMenu().click();
+		Thread.sleep(1000);
+		sharedFolder.fileShare().click();
+		Thread.sleep(1000);
+		sharedFolder.clickShareBtn().click();
+		Thread.sleep(1000);		
+		assertEquals(sharedFolder.shareFileHeader().getText(), "ファイルの一時保存先");
+		Thread.sleep(1000);	
+		sharedFolder.shareOkBtn().click();
+		Thread.sleep(1000);	
+	}
+	
+	
+	@Test(priority = 13, groups = { "Functional" }, enabled = true)
+//	@PriorityInClass(4)
+	public void verifySingleFileFolderDelete() throws Exception {
+		setTestDesc(
+				"Verify that Admin can delete folder/file from the root folder.Folder should be available in the root folder");
+				
+		sharedFolder.selectSinlgeCheckBox().click();
+		SharedFolderDelete deleteFolder = sharedFolder.gotoSharedFolderDelete();
+		deleteFolder.okBtn().click();
+		Thread.sleep(4000);
+
+	}
+	
+	@Test(priority = 14, groups = { "Functional" }, enabled = true)
+//	@PriorityInClass(4)
+	public void verifyMultiFileFolderDelete() throws Exception {
+		setTestDesc(
+				"Verify that Admin can delete folder/file from the root folder.Folder should be available in the root folder");
+				
+		sharedFolder.selectAllCheckBox().click();
+		SharedFolderDelete deleteFolder = sharedFolder.gotoSharedFolderDelete();
+		deleteFolder.okBtn().click();
+		Thread.sleep(4000);
+
+	}
+	
+	@Test(priority = 15, groups = { "Functional" }, enabled = true)	  
+	 // @PriorityInClass(1) 
+	  public void verifyFolderFileMove() throws Exception {
+	  setTestDesc(
+	  "Verify that Admin can move file to sub folders in the root folder."
+	  );
+	  sharedFolder.uploadBtn().click();
+	  sharedFolder.uploadFileWithRobot(projectPath + "\\PNGFiles\\");
+	  sharedFolder.uploadFileWithRobot("\"File1.pdf" + "\" \"File1.jpg"+ "\" \"File1.png" + "\" \"File1.jpeg"+ "\"");
+		Thread.sleep(30000);
+		sharedFolderCreation = sharedFolder.gotoSharedFolderCreation();
+		sharedFolderCreation.createFolder("AutoTest");
+		Thread.sleep(1000);
+		sharedFolder.selectSinlgeCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.changeSaveDestinationBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.SelectFolderInSameLevel().click();
+		Thread.sleep(1000);
+		sharedFolder.renameOkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenCreatedFolder().click();
+		Thread.sleep(1000);
+		assertEquals(sharedFolder.firstRowName().getText().substring(0, 4), "File");
+	  
+	  
+	  }
+	
+	@Test(priority = 16, groups = { "Functional" }, enabled = true)	  
+	 // @PriorityInClass(1) 
+	  public void verifyFolderMoveToSubFolder() throws Exception {
+	  setTestDesc(
+	  "Verify that Admin can move folder to sub folders in the root folder."
+	  );
+
+	    sharedFolderCreation = sharedFolder.gotoSharedFolderCreation();
+	    sharedFolderCreation.createFolder("AutoTest1");
+		Thread.sleep(1000);
+		sharedFolder.selectSinlgeCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.changeSaveDestinationBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.SelectFolderInSameLevel().click();
+		Thread.sleep(1000);
+		sharedFolder.renameOkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.OpenCreatedFolder().click();
+		Thread.sleep(1000);
+		assertEquals(sharedFolder.firstRowName().getText().substring(0, 9), "AutoTest1");
+	  
+	  
+	  }
+	
+	@Test(priority = 17, groups = { "Functional" }, enabled = true)	  
+	 // @PriorityInClass(1) 
+	  public void verifyMultipleFileFolderMoveToSubFolder() throws Exception {
+	  setTestDesc(
+	  "Verify that Admin can move multiple file/folder to sub folders in the root folder."
+	  );
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.selectSecondCheckBox().click();
+		sharedFolder.changeSaveDestinationBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.SelectFolderInSameLevel().click();
+		Thread.sleep(1000);
+		sharedFolder.renameOkBtn().click();
+		Thread.sleep(1000);
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertNotEquals(BeforeDltfileCnt, AfterDltfileCnt);
+	  
+	  
+	  }
+	
+	@Test(groups = { "Functional" }, enabled = true)	  
+	 // @PriorityInClass(1) 
+	  public void verifyFolderFileFolderMoveToPersonalFolder() throws Exception {
+	  setTestDesc(
+	  "Verify that Admin can move multiple files/folders from personal folder to the Shared folders."
+	  );
+
+	 // sharedFolder.uploadBtn().click();
+	 // sharedFolder.uploadFileWithRobot(projectPath + "\\PNGFiles\\");
+	//  sharedFolder.uploadFileWithRobot("\"File1.pdf" + "\" \"File1.jpg"+ "\" \"File1.png" + "\" \"File1.jpeg"+ "\"");
+		//Thread.sleep(40000);
+		//sharedFolderCreation = sharedFolder.gotoSharedFolderCreation();
+		//sharedFolderCreation.createFolder("AutoTest1");
+	  	String BeforeDltfileCnt = sharedFolder.getFileCount();
+	  	sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.changeSaveDestinationBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.SelectFileMovetoHome().click();
+		Thread.sleep(1000);
+		sharedFolder.selectFileMovetoPesonalFolder().doubleClick();
+		Thread.sleep(1000);
+		sharedFolder.renameOkBtn().click();
+		Thread.sleep(1000);
+		
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertNotEquals(BeforeDltfileCnt, AfterDltfileCnt);
+	  
+	  
+	  }
+	
+*/
+}

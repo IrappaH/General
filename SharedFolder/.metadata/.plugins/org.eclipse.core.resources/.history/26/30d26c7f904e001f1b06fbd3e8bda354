@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//Inputs/localization.json=UTF-8
+encoding//src/test/script/CreateFolderInPersonalRootFolder.java=UTF-8
+encoding//src/test/script/CreateFolderInPersonalRootFolderSharedFolder.java=UTF-8
+encoding//src/test/script/CreateFolderInPersonalSubFolder.java=UTF-8
+encoding//src/test/script/CreateFolderInPersonalSubFolderSharedfolder.java=UTF-8

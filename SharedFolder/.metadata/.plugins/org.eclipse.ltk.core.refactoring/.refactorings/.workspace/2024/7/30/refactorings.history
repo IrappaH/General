@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;SharedFolder&apos; to &apos;SharedFolderSmokeTest&apos;" description="Rename resource &apos;SharedFolder&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/SharedFolder" name="SharedFolderSmokeTest" stamp="1721887134598" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;EchoboSmoke&apos; to &apos;EchoboSmokeTest&apos;" description="Rename resource &apos;EchoboSmoke&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/EchoboSmoke" name="EchoboSmokeTest" stamp="1721887150508" updateReferences="true"/>
+</session>

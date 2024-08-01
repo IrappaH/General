@@ -1,0 +1,10 @@
+package Pages;
+
+public class EchoboLogin {
+
+	public static <String> void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

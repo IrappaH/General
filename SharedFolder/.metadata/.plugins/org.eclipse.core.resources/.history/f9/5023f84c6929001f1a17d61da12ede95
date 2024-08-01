@@ -1,0 +1,60 @@
+{
+	"elements": {
+		"createNewFolderLbl": {
+			"chrome": {
+				"xpath": "//div[(@class='v-card__title left')]/font/font"
+			},
+			"fireFox": {
+				"xpath": "//div[(@class='v-card__title left')]/font/font"
+			},
+			"msedge": {
+				"xpath": "//div[(@class='v-card__title left')]/font/font"
+			},
+			"safari": {
+				"xpath": "//div[(@class='v-card__title left')]/font/font"
+			}
+		},
+		"createNewFolderTxtBox": {
+			"chrome": {
+				"xpath": "//div[@class='v-field v-field--active v-field--dirty v-field--no-label v-field--variant-underlined v-theme--light v-locale--is-ltr']//div[@class='v-field__field']/label"
+			},
+			"fireFox": {
+				"xpath": "//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//input[(@type='text')]"
+			},
+			"msedge": {
+				"xpath": "//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//input[(@type='text')]"
+			},
+			"safari": {
+				"xpath": "//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//input[(@type='text')]"
+			}
+		},
+		"cancelBtn": {
+			"chrome": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[1]"
+			},
+			"fireFox": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[1]"
+			},
+			"msedge": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[1]"
+			},
+			"safari": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[1]"
+			}
+		},
+		"okBtn": {
+			"chrome": {
+				"xpath": "(//button[@class='v-btn v-btn--slim v-theme--light text-green darken-1 v-btn--density-default v-btn--size-default v-btn--variant-text text-h6'])[2]"
+			},
+			"fireFox": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[2]"
+			},
+			"msedge": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[2]"
+			},
+			"safari": {
+				"xpath": "(//div[(@class='v-dialog v-dialog--active v-dialog--persistent')]//span[(@class='v-btn__content')])[2]"
+			}
+		}
+	}
+} 

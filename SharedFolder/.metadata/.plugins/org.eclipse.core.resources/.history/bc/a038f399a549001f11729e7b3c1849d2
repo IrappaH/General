@@ -1,0 +1,315 @@
+package test.script;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertTrue;
+
+import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import cocoro.lib.uiauto.DriverFactory;
+import cocoro.testng.listener.PriorityInClass;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.PersonalFolder;
+import pages.PersonalFolderCreation;
+import pages.PersonalFolderDelete;
+import pages.PersonalFolderSearch;
+import pages.SharedFolder;
+import pages.SharedFolderCreation;
+import pages.SharedFolderDelete;
+import pages.SharedFolderSearch;
+import tests.FileUpload;
+import tests.InitialTestSetup;
+
+public class FaxSmokeTest extends InitialTestSetup {
+	private SharedFolderCreation sharedFolderCreation = null;
+	private SharedFolder sharedFolder = null;
+	private HomePage homePage = null;
+	String projectPath = System.getProperty("user.dir");
+	@BeforeClass(alwaysRun = true)
+	public void login(ITestContext context) throws Exception {
+		setupClassCommonSteps(context);
+		this.config.ReadConfig(context);
+
+		setDriver(new DriverFactory().createDriver(this.config).getDriver());
+		LoginPage loginPage = goToLoginPage();
+		loginPage.userNameTxtbox().sendKeys("test1.cocoro@gmail.com");
+		loginPage.passwordTxtbox().sendKeys("Demo88Demo");
+		homePage = loginPage.login();
+		Thread.sleep(5000);
+
+	}
+
+	@BeforeMethod(alwaysRun = true)
+	public void verifyFolderIsEmpty() throws Exception {
+		sharedFolder = homePage.gotoFaxFolder();
+		Thread.sleep(2000);		
+	}
+
+	@AfterMethod(alwaysRun = true)
+	public void deleteAllFolders() throws Exception {
+		 System.out.println("This is Expected result: "+getLocalizedMessage("noFilesInTable").trim());		
+	}	
+	
+	@Test(priority = 1,groups = { "Functional" }, enabled = false)
+	//@PriorityInClass(3)
+	public void verifySingleFolderDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can download sinlge folder/file from the folder.file/folder should be available in the folder");
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);		
+		sharedFolder.selectSinlgeCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.downloadBtn().click();
+		Thread.sleep(3000);
+	}
+	
+	@Test(priority = 2,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifyMultiFolderDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can download multiple folder/file from the folder.Folder should be available in the folder");
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.downloadBtn().click();
+		Thread.sleep(5000);
+
+	}	
+	
+	@Test(priority = 3,groups = { "Functional" }, enabled = false)
+	//@PriorityInClass(3)
+	public void verifyFolderSearch() throws Exception {
+		setTestDesc(
+				"Verify that Admin can search folder/file from the root folder.Folder should be available in the root folder");
+		String fineName = "pdf";
+		SharedFolderSearch gotoSearchSharedFolder = sharedFolder.gotoSearchSharedFolder(fineName);
+		String searchResultStr = gotoSearchSharedFolder.getSearchResultStr();	
+		Thread.sleep(1000);
+		assertEquals(searchResultStr,"検索結果");		
+		assertTrue(sharedFolder.firstRowName().getText().contains(fineName));
+
+	}
+	
+	@Test(priority = 4,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifySearchPageReturnButton() throws Exception {
+		setTestDesc(
+				"Verify that Admin can search folder/file from the root folder and click on Return button to home page");
+		String fineName = "pdf";
+		SharedFolderSearch gotoSearchSharedFolder = sharedFolder.gotoSearchSharedFolder(fineName);
+		Thread.sleep(1000);
+		gotoSearchSharedFolder.returnBtn().click();		
+		Thread.sleep(1000);
+		assertEquals(sharedFolder.rootFolder().getText(), "BP-70M65(WS-VGA BP 60-BA Series)");
+
+	}
+		
+	@Test(priority = 17,groups = { "Functional" }, enabled = false)
+	//@PriorityInClass(3)
+	public void verifySingleFolderDelete() throws Exception {
+		setTestDesc(
+				"Verify that Admin can delete sinlge folder/file from the  folder.file/folder should be available in the  folder");
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		sharedFolder.selectSinlgeCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteBkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteOKBtn().click();
+		Thread.sleep(1000);
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertNotEquals(BeforeDltfileCnt, AfterDltfileCnt);
+
+	}
+	@Test(priority = 18,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifyMultiFolderDelete() throws Exception {
+		setTestDesc(
+				"Verify that Admin can delete multiple folder/file from the folder.Folder should be available in the folder");
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);		
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteBkBtn().click();
+		Thread.sleep(1000);
+		sharedFolder.deleteOKBtn().click();
+		Thread.sleep(1000);
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertNotEquals(BeforeDltfileCnt, AfterDltfileCnt);
+
+	}
+	
+	
+	
+	@Test(priority = 7,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifyIndividualFolderDownload() throws Exception {
+		setTestDesc(
+				"Verify that Admin can Download - Individual file or folder");
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);	
+		
+		sharedFolder.selectAllCheckBox().click();
+		Thread.sleep(1000);
+		sharedFolder.downloadBtn().click();
+		Thread.sleep(3000);
+
+	}
+	@Test(priority = 8,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifyFilePreview() throws Exception {
+		setTestDesc(
+				"Verify that Admin can previewe PDF file.");
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);		
+		sharedFolder.Openfolder().click();
+		Thread.sleep(1000);
+		sharedFolder.firstRowName().click();
+		boolean checkNewTabWindowDisplayed = sharedFolder.CheckNewTabWindowDisplayed();		
+		assertFalse(checkNewTabWindowDisplayed);		
+
+	}
+
+	@Test(priority = 9,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifyDeviceListDisplayed() throws Exception {
+		setTestDesc(
+				"Verify that Device list are displayed");
+		sharedFolder.ClickDeviceManagemnt().click();
+		Thread.sleep(1000);	
+		assertTrue(sharedFolder.deviceListcheck().isDisplayed());
+		Thread.sleep(1000);		
+		
+	}
+
+	@Test(priority = 10,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifySettingsFilesSortedByDate() throws Exception {
+		setTestDesc(
+				"Verify that Files should be sorted by date");
+		sharedFolder.ClickSettings().click();		
+		Thread.sleep(1000);	
+		sharedFolder.ClickDateRadiobtn().click();
+		Thread.sleep(2000);			
+		assertTrue(sharedFolder.DateselectionDisplayed().isDisplayed());
+	}
+	
+	@Test(priority = 12,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifySettingsFilesSortedByCompany() throws Exception {
+		setTestDesc(
+				"Verify that Files should be sorted by Company");
+		sharedFolder.ClickSettings().click();		
+		Thread.sleep(1000);	
+		sharedFolder.ClickCompanyRadiobtn().click();
+		Thread.sleep(2000);			
+		assertTrue(sharedFolder.companySelectionDisplayed().isDisplayed());
+	}
+	
+
+	@Test(priority = 13,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifySettingsDirectInput() throws Exception {
+		setTestDesc(
+				"Verify that Direct input and set");
+		sharedFolder.ClickSettings().click();		
+		Thread.sleep(1000);	
+		sharedFolder.DirectInputRadioBtn().click();
+		Thread.sleep(1000);			
+		sharedFolder.EnterCompanyName().sendKeys("Company Name 1");
+		Thread.sleep(1000);	
+		sharedFolder.EnterEmail().sendKeys("sharp@company.com");
+		Thread.sleep(1000);	
+		sharedFolder.ClickOnAdd().click();
+		Thread.sleep(1000);	
+		sharedFolder.ClickOnSet().click();
+		Thread.sleep(1000);	
+		sharedFolder.shareOkBtn().click();		
+		assertTrue(sharedFolder.AddressBookValue().isDisplayed());
+	}
+	
+
+	@Test(priority = 14,groups = { "Functional" }, enabled = true)
+	@PriorityInClass(3)
+	public void verifySettingsInputFromCSV() throws Exception {
+		setTestDesc(
+				"Verify that Input from CSV and set");
+		Thread.sleep(1000);
+		sharedFolder.ClickSettings().click();		
+		Thread.sleep(1000);	
+		sharedFolder.ClickCSVInputBtn().doubleClick();			
+		Thread.sleep(3000);
+		sharedFolder.uploadFileWithRobot(projectPath + "/PNGFiles/");
+		sharedFolder.uploadFileWithRobot("\"InputFrom.csv");
+		Thread.sleep(2000);			
+		sharedFolder.ClickOnAdd().click();
+		Thread.sleep(1000);	
+		sharedFolder.ClickOnSet().click();
+		Thread.sleep(1000);	
+		sharedFolder.shareOkBtn().click();		
+		assertTrue(sharedFolder.AddressBookValueCSV().isDisplayed());
+	}
+	
+	
+
+	@Test(priority = 19,groups = { "Functional" }, enabled = false)
+	@PriorityInClass(3)
+	public void verifyDeviceListDelete() throws Exception {
+		setTestDesc(
+				"Verify that Select single device and delete");
+		sharedFolder.ClickDeviceManagemnt().click();
+		Thread.sleep(1000);	
+		String BeforeDltfileCnt = sharedFolder.getFileCount();
+		sharedFolder.deviceListcheckbox().click();
+		Thread.sleep(1000);	
+		sharedFolder.deleteBkBtn().click();
+		Thread.sleep(1000);	
+		sharedFolder.deleteOKBtn().click();
+		Thread.sleep(2000);
+		String AfterDltfileCnt = sharedFolder.getFileCount();
+		assertNotEquals(BeforeDltfileCnt, AfterDltfileCnt);
+	}
+	
+	
+}

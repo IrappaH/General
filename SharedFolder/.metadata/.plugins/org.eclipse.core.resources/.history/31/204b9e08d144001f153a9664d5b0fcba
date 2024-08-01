@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite  name="Suite">
+  <test name="Test1">
+
+		<parameter name="configfile"
+			value="properties\chrome\config.properties" />
+    <classes>
+      <class name="test.script.OtherPersonalFolderSmokeTest"/>
+    </classes>
+  </test> <!-- Test -->
+  <!--
+  <test name="Test2">
+
+		<parameter name="configfile"
+			value="properties\chrome\config.properties" />
+    <classes>
+      <class name="test.script.Cr
+      "File1.pdf" "File1.jpg" "File1.png" "File1.jpeg"
+      eateFolderInShareRootFolder"/>
+    </classes>
+  </test>  Test -->
+</suite> <!-- Suite -->

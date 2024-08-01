@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="3" name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="3" name="Test1(failed)">
+    <parameter name="configfile" value="properties\chrome\config.properties"/>
+    <classes>
+      <class name="test.script.FaxSmokeTest">
+        <methods>
+          <include name="processTestContext"/>
+          <include name="tearDown"/>
+          <include name="startApplication"/>
+          <include name="configureSuite"/>
+          <include name="login"/>
+          <include name="closeBrowser"/>
+          <include name="verifyDeviceListDelete"/>
+          <include name="setupClassCommonSteps"/>
+        </methods>
+      </class> <!-- test.script.FaxSmokeTest -->
+    </classes>
+  </test> <!-- Test1(failed) -->
+</suite> <!-- Failed suite [Suite] -->

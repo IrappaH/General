@@ -1,0 +1,152 @@
+{
+	"stringlocalize": {
+	"LoginLbl": {
+			"Japanese": "ãƒ­ã‚°ã‚¤ãƒ³",
+			"English": "Login"
+		},
+		"UserNameLbl": {
+			"Japanese": "ID",
+			"English": "ID"
+		},
+		"PasswordLbl": {
+			"Japanese": "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰",
+			"English": "Password"
+		},
+		"ErrorMgs": {
+			"Japanese": "ãƒ­ã‚°ã‚¤ãƒ³ã�«å¤±æ•—ã�—ã�¾ã�—ã�Ÿã€‚IDã€�ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã�®ã�”ç¢ºèª�ã�Šé¡˜ã�„è‡´ã�—ã�¾ã�™ã€‚",
+			"English": "errormsg"
+		},
+		"HomePageTabLbl": {
+			"Japanese": "ãƒ›ãƒ¼ãƒ ãƒšãƒ¼ã‚¸",
+			"English": "home Page"
+		},
+		"HomePageCardLbl": {
+			"Japanese": "ãƒ›ãƒ¼ãƒ ãƒšãƒ¼ã‚¸",
+			"English": "home Page"
+		},
+		"ReportSettingsLbl": {
+			"Japanese": "ãƒ¬ãƒ�ãƒ¼ãƒˆè¨­å®š:",
+			"English": "ReportSettings:"
+		},
+		"CreateErrorMgsWith406":{ 
+			"Japanese": "フォルダー名・ファイル名が不正です。(406)", 
+			"English": "The folder name/file name is invalid. (406)"
+		},
+		"CreateErrorMgs":{ 
+			"Japanese": "フォルダー名・ファイル名が不正です。", 
+			"English": "The folder name/file name is invalid."
+		},
+		
+		
+		"AggregationPeriodLbl": {
+			"Japanese": "é›†è¨ˆæœŸé–“:",
+			"English": "Aggregation period:"
+		},
+		"January": {
+			"Japanese": "1æœˆ",
+			"English": "January"
+		},
+		"February": {
+			"Japanese": "2æœˆ",
+			"English": "February"
+		},
+		"March": {
+			"Japanese": "3æœˆ",
+			"English": "March"
+		},
+		"April": {
+			"Japanese": "4æœˆ",
+			"English": "April"
+		},
+		"May": {
+			"Japanese": "5æœˆ",
+			"English": "May"
+		},
+		"June": {
+			"Japanese": "6æœˆ",
+			"English": "June"
+		},
+		"July": {
+			"Japanese": "7æœˆ",
+			"English": "July"
+		},
+		"August": {
+			"Japanese": "8æœˆ",
+			"English": "August"
+		},
+		"September": {
+			"Japanese": "9æœˆ",
+			"English": "September"
+		},
+		"October": {
+			"Japanese": "10æœˆ",
+			"English": "October"
+		},
+		"November": {
+			"Japanese": "11æœˆ",
+			"English": "November"
+		},
+		"December": {
+			"Japanese": "12æœˆ",
+			"English": "December"
+		},
+		"TenantIDLbl": {
+			"Japanese": "é›†è¨ˆæœŸé–“: ",
+			"English": "Tenant ID:"
+		},
+		"UpdateBtn": {
+			"Japanese": "æ›´æ–°",
+			"English": "Update"
+		},
+		"PDFOutputBtn": {
+			"Japanese": "PDFå‡ºåŠ›",
+			"English": "PDF output"
+		},
+		"SummaryTab": {
+			"Japanese": "ã‚µãƒžãƒªãƒ¼",
+			"English": "Summary"
+		},
+		"IndividualPCInformation": {
+			"Japanese": "å€‹åˆ¥PCæƒ…å ±",
+			"English": "Summary"
+		},
+		"NASInformationTab": {
+			"Japanese": "NASæƒ…å ±",
+			"English": "NAS information"
+		},
+		"MFPInformationManufacturedBySHARPTab": {
+			"Japanese": "MFPæƒ…å ±(SHARPè£½)",
+			"English": "MFP information (manufactured by SHARP)"
+		},
+		"MFPInformationOtherCompanySystemTab": {
+			"Japanese": "MFPæƒ…å ±(ä»–ç¤¾è£½)",
+			"English": "MFP information (other company system)"
+		},
+		"EquipmentConfigurationDiagramTab": {
+			"Japanese": "æ©Ÿå™¨æ§‹æˆ�å›³",
+			"English": "Equipment configuration diagram"
+		},
+		"AppUsageStatusTab": {
+			"Japanese": "ã‚¢ãƒ—ãƒªåˆ©ç”¨çŠ¶æ³�",
+			"English": "App usage status"
+		},
+		"SecuritySoftwareUsageStatusTab": {
+			"Japanese": "ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ã‚½ãƒ•ãƒˆåˆ©ç”¨çŠ¶æ³�",
+			"English": "Security software usage status"
+		},
+		"FSecureStatusTab": {
+			"Japanese": "F-Secureã�®çŠ¶æ³�",
+			"English": "F-Secure Status"
+		}
+		,
+		"noFilesInTable": {
+			"Japanese": "データはありません。",
+			"English": "データはありません。"
+		},
+		"noData":{ 
+		"Japanese": "check_box",
+			"English": "check_box"
+		}
+		
+	}
+}

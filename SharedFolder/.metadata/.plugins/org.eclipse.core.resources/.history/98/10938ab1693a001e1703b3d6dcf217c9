@@ -1,0 +1,121 @@
+package Echobo;
+
+import static org.testng.Assert.assertTrue;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class LoginPage extends BaseTest {
+
+	@BeforeClass
+	public void LaunchLoginPage() throws InterruptedException {
+		driver = new ChromeDriver();
+		driver.get("https://m6.networkprint.jp/storage/echobo/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		test = extent.createTest("Login Page", "Login page is opened");
+		driver.findElement(By.xpath("//input[@name='UserName']")).sendKeys("cocoro.ssdira@gmail.com");
+		driver.findElement(By.xpath("//input[@name='Password']")).sendKeys("Demo88Demo");
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
+
+		Thread.sleep(10000);
+		boolean displayed = driver.findElement(By.xpath("//h3[.='概要']")).isDisplayed();
+		// assertTrue(displayed);
+	}
+
+	@BeforeMethod
+	public void OpenInputTrayFolder() throws InterruptedException {
+		test = extent.createTest("Pre-condition", "Open the input tray folder");
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("(//div[.='入力用トレイ'])[1]")).click();
+		Thread.sleep(10000);
+		boolean displayed = driver.findElement(By.xpath("(//DIV[@class='v-responsive__content'])[5]")).isDisplayed();
+		// assertTrue(displayed);
+	}
+
+	@AfterMethod
+	public void SummaryPage() throws InterruptedException {
+		test = extent.createTest("Post condition", "Open the summary page");
+		Thread.sleep(10000);
+		driver.findElement(By.xpath("//a[.='ホーム']")).click();
+		boolean displayed = driver.findElement(By.xpath("//h3[.='概要']")).isDisplayed();
+		// assertTrue(displayed);
+
+	}
+
+	@Test(priority = 1)
+	public void RenameFileFromOperationMenu() throws InterruptedException {
+		String FileName = "漢漢字𠀋𩸽噂漢字𠀋𩸽噂Ⅸ纊偆漢字𠀋𩸽噂Ⅸ纊偆～∥￡漢纊偆～∥￡漢字𠀋𩸽噂Ⅸ纊偆～漢字𠀋𩸽噂Ⅸ纊偆～∥漢字𠀋𩸽噂Ⅸ纊";
+
+		test = extent.createTest("Test case #1",
+				"./n1 Rename File from operation menu.." + "./n2. Click on operation menu"
+						+ "./n3. Click on Rename button" + "./n4. Enter File name" + "./n5. Click on Ok button"
+						+ "./n6. Verify file got Renamed or not");
+		/*
+		 * driver.findElement(By.xpath("//input[@id='searchword']")).
+		 * sendKeys("見積書サンプル(1) (1).pdf"); Thread.sleep(1000);
+		 * driver.findElement(By.xpath("//span[.='検索']")).click(); Thread.sleep(2000);
+		 * driver.findElement(By.xpath("//span[.='OK']")).click();
+		 */
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//img[@src='/storage/echobo/images/3dots_vertical.svg'])[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//div[.='ファイル名を変更'])[2]")).click();
+		Thread.sleep(1000);
+		//driver.findElement(By.xpath("(//button[.='clear'])")).click();
+		//Thread.sleep(1000);
+		//driver.findElement(By.xpath("//input[@required='required'][@type='text']")).sendKeys(FileName);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[.=' OK']")).click();
+		Thread.sleep(1000);
+
+		driver.findElement(By.xpath("//input[@id='searchword']")).sendKeys("");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[.='検索']")).click();
+		Thread.sleep(1000);
+		
+		driver.findElement(By.xpath("//span[.='OK']")).click();
+		Thread.sleep(1000);
+		String input = driver.findElement(By.xpath("(//td[.='iTextImageExample18651.pdf'])[2]")).getText();
+		Thread.sleep(1000);
+		Assert.assertEquals(input, "iTextImageExample18651"+".pdf");
+	}
+
+	@Test(priority = 2, enabled = false)
+	public void RenameFileFromFilePreview() throws InterruptedException {
+		test = extent.createTest("Test case #2", "Rename File from file Preview");
+		String FileName1 ="漢漢字𠀋𩸽噂漢字𠀋𩸽噂Ⅸ纊偆漢字𠀋𩸽噂Ⅸ纊偆～∥￡漢纊偆～∥￡漢字𠀋𩸽噂Ⅸ纊偆～漢字𠀋𩸽噂Ⅸ纊偆～∥漢字𠀋𩸽噂Ⅸ纊";
+		String FileName ="test";
+		driver.findElement(By.xpath("//input[@id='searchword']")).sendKeys(FileName);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[.='検索']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//img[@src='/storage/echobo/images/3dots_vertical.svg'])[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//div[.='取引情報の入力'])[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//span[.='ファイル名を変更'])[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[.='clear']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@required='required'][@type='text']")).sendKeys("FileSearch");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[.=' OK']")).click();
+		Thread.sleep(1000);
+		String input = driver.findElement(By.xpath("//div[.='FileSearch.pdf']")).getText();
+		Thread.sleep(1000);
+		Assert.assertEquals(input, "FileSearch.pdf");
+		driver.findElement(By.xpath("//i[.='close']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[.='いいえ']")).click();
+	}
+
+}

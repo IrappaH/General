@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;CocoroLinux&apos;" deleteContents="true" description="Delete resource &apos;CocoroLinux&apos;" element1="/CocoroLinux" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1691659423908"/>&#x0A;<refactoring comment="Delete resource &apos;cocoro.linix&apos;" deleteContents="true" description="Delete resource &apos;cocoro.linix&apos;" element1="/cocoro.linix" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1691661551337"/>
+</session>
